@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BJtest.CustomViews.FloatingActionButton.FloationActionButtonActionView"
+    xmlns:frame="clr-namespace:BJtest.CustomViews.ShadowFrame">
+    <ContentView.Content>
+        <StackLayout
+            HeightRequest="44"
+            Spacing="10"
+            Orientation="Horizontal"
+            Padding="0, 0, 7, 0">
+            <frame:ShadowFrame
+                HorizontalOptions="End"
+                VerticalOptions="CenterAndExpand"
+                Padding="6"
+                BackgroundColor="White"
+                CornerRadius="4"
+                BorderColor="Black">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Label_Tapped"/>
+                </Frame.GestureRecognizers>
+                <Label
+                    x:Name="ActionLabel"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    LineBreakMode="TailTruncation"
+                    HorizontalTextAlignment="End"
+                    TextColor="Black"
+                    Text="Top label" />
+            </frame:ShadowFrame>
+            <frame:ShadowFrame
+                x:Name="ActionButtonFrame"
+                HorizontalOptions="EndAndExpand"
+                VerticalOptions="CenterAndExpand"
+                BorderColor="Red"
+                BackgroundColor="Red"
+                CornerRadius="22"
+                WidthRequest="44"
+                HeightRequest="44"
+                Padding="0">
+                <ImageButton
+                    x:Name="ActionButton"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    BackgroundColor="Transparent"
+                    Padding="10"
+                    WidthRequest="44"
+                    HeightRequest="44" />
+            </frame:ShadowFrame>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

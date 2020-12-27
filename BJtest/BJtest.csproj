@@ -13,5 +13,28 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Refit" Version="5.2.4" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.470" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commons\" />
+    <Folder Include="DB\" />
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Pages\" />
+    <Folder Include="REST\" />
+    <Folder Include="Models\RestModels\" />
+    <Folder Include="Models\DBModels\" />
+    <Folder Include="Commons\Exceptions\" />
+    <Folder Include="Commons\Managers\" />
+    <Folder Include="Commons\Managers\UserManager\" />
+    <Folder Include="Commons\Managers\ContentManager\" />
+    <Folder Include="Commons\Helpers\" />
+    <Folder Include="ViewModels\PagesViewModels\" />
+    <Folder Include="ViewModels\ViewsViewModels\" />
+    <Folder Include="CustomViews\" />
+    <Folder Include="Commons\Utils\" />
   </ItemGroup>
 </Project>
