@@ -5,54 +5,99 @@
              ios:Page.UseSafeArea="true"
              xmlns:floatingButton="clr-namespace:BJtest.CustomViews.FloatingActionButton"
              x:Class="BJtest.MainPage"
+             BackgroundColor="White"
              Title="Задачи" >
     <ContentPage.ToolbarItems>
         <ToolbarItem Order="Primary" Text="{Binding AuthButtonText}" Command="{Binding AuthCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
-            <RefreshView
-                IsRefreshing="{Binding IsBusy}"
-                Command="{Binding LoadTasksCommand}" >
-                <CollectionView
-                    ItemsSource="{Binding TaskList}"
-                    BackgroundColor="White"
-                    SelectionMode="Single"
-                    SelectionChanged="TasksList_SelectionChanged" >
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
+            <StackLayout VerticalOptions="FillAndExpand" Spacing="15" Padding="15">
+                <RefreshView
+                    IsRefreshing="{Binding IsBusy}"
+                    Command="{Binding LoadTasksCommand}" >
+                    <CollectionView
+                        ItemsSource="{Binding TasksList}"
+                        BackgroundColor="White"
+                        SelectionMode="Single"
+                        SelectionChanged="TasksList_SelectionChanged" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="5, 15, 5, 15" Spacing="7"
+                                                VerticalOptions="CenterAndExpand">
+
+                                    <Label Text="{Binding UserName, StringFormat='Имя: {0}' }" FontSize="Medium" LineBreakMode="WordWrap"
+                                           TextColor="Black" FontAttributes="Bold"
+                                           HorizontalOptions="Start" />
+
+                                    <Label Text="{Binding Email, StringFormat='E-mail: {0}' }" FontSize="Medium" 
+                                           TextColor="Black" 
+                                           HorizontalOptions="Start" />
+
+                                    <Label Text="{Binding Text, StringFormat='Текст: {0}' }" FontSize="Medium" LineBreakMode="WordWrap"
+                                           TextColor="Black" 
+                                           HorizontalOptions="Start" />
+
+                                    <Label Text="Выполнено" FontSize="Medium"
+                                           TextColor="Green" FontAttributes="Bold"
+                                           IsVisible="{Binding IsCompleted}"
+                                           HorizontalOptions="Start" />
+
+                                    <Label Text="Отредактировано администратором" FontSize="Medium"
+                                           TextColor="Blue" FontAttributes="Bold"
+                                           IsVisible="{Binding WasEdited}"
+                                           HorizontalOptions="Start" />
+
+                                    <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" Color="LightGray" Margin="0, 0, 0, 1" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            
+
+                <CarouselView
+                    x:Name="PagesCarousel"
+                    ItemsSource="{Binding PagesList}"
+                    HeightRequest="60"
+                    WidthRequest="200"
+                    Margin="0"
+                    HorizontalOptions="FillAndExpand"
+                    PeekAreaInsets="150" >
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="15, 15, 15, 15" Spacing="15"
-                                            VerticalOptions="CenterAndExpand">
-
-                                <Label Text="{Binding UserName, StringFormat='Имя: {0}' }" FontSize="Large" LineBreakMode="WordWrap"
-                                       TextColor="Black" FontAttributes="Bold"
-                                       HorizontalOptions="Start" />
-
-                                <Label Text="{Binding Email, StringFormat='E-mail: {0}' }" FontSize="Medium" 
-                                       TextColor="Black" 
-                                       HorizontalOptions="Start" />
-
-                                <Label Text="{Binding Text, StringFormat='Текст: {0}' }" FontSize="Medium" LineBreakMode="WordWrap"
-                                       TextColor="Black" 
-                                       HorizontalOptions="Start" />
-
-                                <Label Text="{Binding Status}" FontSize="Medium"
-                                       TextColor="Green" FontAttributes="Bold"
-                                       HorizontalOptions="Start" />
-
-                                <Label Text="{Binding WasEdited}" FontSize="Medium"
-                                       TextColor="Blue" FontAttributes="Bold"
-                                       HorizontalOptions="Start" />
-
-                                <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" Color="LightGray" Margin="0, 0, 0, 1" />
+                            <StackLayout>
+                                <Frame HasShadow="False"
+                                    BorderColor="Black"
+                                    CornerRadius="5"
+                                    Margin="10"
+                                    Padding="1"
+                                    HeightRequest="25"
+                                    WidthRequest="25"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding Number}"
+                                            TextColor="Black"
+                                            FontAttributes="Bold"
+                                            FontSize="Medium"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="PageSelector_Tapped" />
+                                    </Frame.GestureRecognizers>
+                                </Frame>
                             </StackLayout>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </RefreshView>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+            </StackLayout>
             
             <floatingButton:FloatingActionButtonView
                 Margin="0, 0, 20, 20"

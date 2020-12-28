@@ -9,6 +9,8 @@ namespace BJtest.Commons.Helpers
         {
             try
             {
+                if (String.IsNullOrEmpty(emailaddress))
+                    return false;
                 MailAddress m = new MailAddress(emailaddress);
                 return true;
             }

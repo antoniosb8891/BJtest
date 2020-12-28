@@ -13,5 +13,8 @@ namespace BJtest.REST
         [Get("/")]
         Task<ApiResponse<BaseResponseRestModel>> GetTasks(GetTasksRequest request, [AliasAs("developer")] string developer);
 
+        [Post("/create")]
+        Task<ApiResponse<BaseResponseRestModel>> CreateTask([Body(BodySerializationMethod.UrlEncoded)] CreateTaskRequest request, [AliasAs("developer")] string developer);
+
     }
 }

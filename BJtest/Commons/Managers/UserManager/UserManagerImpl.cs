@@ -39,5 +39,9 @@ namespace BJtest.Common.Managers.UserManager
             return false;
         }
 
+        public bool IsLogged()
+        {
+            return !Settings.Token.Equals(Settings.TokenDefault);
+        }
     }
 }

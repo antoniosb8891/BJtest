@@ -10,6 +10,8 @@ namespace BJtest.ViewModels.ViewsViewModels
             _index = index;
         }
 
+        public int Number => _index + 1;
 
+        public int Index => _index;
     }
 }

@@ -37,4 +37,9 @@
     <Folder Include="CustomViews\" />
     <Folder Include="Commons\Utils\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Pages\TaskInfoPage.xaml.cs">
+      <DependentUpon>TaskInfoPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

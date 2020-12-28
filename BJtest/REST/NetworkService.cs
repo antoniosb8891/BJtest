@@ -38,7 +38,8 @@ namespace BJtest.REST
         public enum TaskType
         {
             LOGIN,
-            GET_TASKS
+            GET_TASKS,
+            CREATE_TASK
         }
 
         public NetworkService()
@@ -106,6 +107,16 @@ namespace BJtest.REST
                             if (args.TryGetValue("arg1", out object reqObj) && reqObj is GetTasksRequest request)
                             {
                                 var response = await api.GetTasks(request, Constants.REQUEST_PARAM_DEVELOPER);
+                                apiResponse = response;
+                                answer = response.Content;
+                            }
+                            break;
+                        }
+                    case TaskType.CREATE_TASK:
+                        {
+                            if (args.TryGetValue("arg1", out object reqObj) && reqObj is CreateTaskRequest request)
+                            {
+                                var response = await api.CreateTask(request, Constants.REQUEST_PARAM_DEVELOPER);
                                 apiResponse = response;
                                 answer = response.Content;
                             }

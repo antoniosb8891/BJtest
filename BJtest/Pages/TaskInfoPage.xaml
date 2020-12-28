@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
+    xmlns:converter="clr-namespace:BJtest.Commons.Helpers"
+    x:Class="BJtest.Pages.TaskInfoPage"
+    BackgroundColor="White"
+    Title="Задача" >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Text="Сохранить" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="15" >
+                <Label Text="Имя:" TextColor="Black" />
+                <Entry Text="{Binding UserName, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
+                       HorizontalOptions="FillAndExpand" TextColor="Black" />
+
+                <Label Text="E-mail:" TextColor="Black" />
+                <Entry Text="{Binding Email, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
+                       HorizontalOptions="FillAndExpand" TextColor="Black" />
+
+                <Label Text="Текст задачи:" TextColor="Black" />
+                <Editor Text="{Binding Text, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
+                        HorizontalOptions="FillAndExpand" TextColor="Black" HeightRequest="120" />
+
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAdmin}" >
+                    <Label Text="Выполнено" TextColor="Black" VerticalOptions="Center" />
+                    <Switch IsToggled="{Binding IsCompleted, Mode=TwoWay}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

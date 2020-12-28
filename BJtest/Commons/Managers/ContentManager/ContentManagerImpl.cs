@@ -43,7 +43,7 @@ namespace BJtest.Commons.Managers.ContentManager
             var answer = await networkService.PerformNetworkRequest(NetworkService.TaskType.GET_TASKS, new Dictionary<string, object>
                 {
                     { "arg1", arg },
-                });
+                }, false);
 
             if (answer != null && answer.IsStatusOk && answer.Data is JObject data)
             {
@@ -59,13 +59,34 @@ namespace BJtest.Commons.Managers.ContentManager
                     int pagesTotal = (int)Math.Ceiling((double)tasksTotal / 3.0);
 
                     _pageSelectorsList.Clear();
-                    for (int i = 0; i < pagesTotal; i++)
-                        _pageSelectorsList.Add(new PageSelectorItemViewModel(i + 1));
+                    for (int i = 0; i < tasksTotal; i++)
+                        _pageSelectorsList.Add(new PageSelectorItemViewModel(i));
 
                     return true;
                 }
             }
 
+            return false;
+        }
+
+        public async Task<bool> CreateTask(string userName, string email, string text)
+        {
+            var arg = new CreateTaskRequest()
+            {
+                UserName = userName,
+                Email = email,
+                Text = text
+            };
+            var answer = await networkService.PerformNetworkRequest(NetworkService.TaskType.CREATE_TASK, new Dictionary<string, object>
+                {
+                    { "arg1", arg },
+                });
+
+            if (answer != null && answer.IsStatusOk && answer.Data is JObject data)
+            {
+                var model = data.ToObject<TaskRestModel>();
+                return model != null;
+            }
             return false;
         }
 

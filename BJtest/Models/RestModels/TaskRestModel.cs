@@ -1,4 +1,5 @@
 ﻿using System;
+using BJtest.Commons.Utils;
 using Newtonsoft.Json;
 
 namespace BJtest.Models.RestModels
@@ -14,10 +15,29 @@ namespace BJtest.Models.RestModels
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("test")]
+        [JsonProperty("text")]
         public string Text { get; set; }
 
-        [JsonProperty("statis")]
+        [JsonProperty("status")]
         public int Status { get; set; }
+
+        public TaskRestModel()
+        {
+        }
+
+        public TaskRestModel(TaskRestModel model)
+        {
+            this.CopyPropertiesFrom(model);
+        }
+
+        [JsonIgnore]
+        public bool IsCompleted
+        {
+            get => Status == 10;
+            set
+            {
+                Status = value ? 10 : 0;
+            }
+        }
     }
 }
