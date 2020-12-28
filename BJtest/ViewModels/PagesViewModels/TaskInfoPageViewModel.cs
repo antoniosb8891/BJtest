@@ -22,6 +22,7 @@ namespace BJtest.ViewModels.PagesViewModels
         {
             _page = page;
             _onCompleted = onCompleted;
+
             if (taskViewModel == null)
             {
                 _taskViewModel = new TaskViewModel();
@@ -29,6 +30,8 @@ namespace BJtest.ViewModels.PagesViewModels
             }
             else
                 _taskViewModel = new TaskViewModel(taskViewModel);
+
+            _page.Title = _isNewTask ? "Новая задача" : "Задача";
         }
 
         public bool IsAdmin => _userManager.IsLogged();

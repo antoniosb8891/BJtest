@@ -46,7 +46,7 @@ namespace BJtest.Common.Exceptions
                 }
                 else
                 {
-                    response.Message = exception.Data.ToString();
+                    response.Message = String.IsNullOrEmpty(exception.Message) ? exception.Data.ToString() : exception.Message;
                 }
             }
             return response;

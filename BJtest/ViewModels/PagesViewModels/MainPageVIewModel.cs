@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using BJtest.Common.Managers.UserManager;
 using BJtest.Commons.Managers.ContentManager;
+using BJtest.Pages;
 using BJtest.ViewModels.ViewsViewModels;
 using Xamarin.Forms;
 using static BJtest.Commons.Helpers.Constants;
@@ -85,8 +86,11 @@ namespace BJtest.ViewModels.PagesViewModels
                 {
                     if (_userManager.IsLogged())
                     {
-
+                        _userManager.ResetLogin();
+                        CheckAuth();
                     }
+                    else
+                        await _page.Navigation.PushAsync(new LoginPage());
                 }, () => true);
             }
         }

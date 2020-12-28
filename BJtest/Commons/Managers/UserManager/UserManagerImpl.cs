@@ -30,11 +30,15 @@ namespace BJtest.Common.Managers.UserManager
                     { "arg1", arg },
                 });
 
-            if (answer != null && answer.IsStatusOk && !String.IsNullOrEmpty(answer.Data as string))
+            if (answer != null && answer.IsStatusOk && answer.Data is JObject data)
             {
-                Settings.Token = answer.Data as string;
-                networkService.Reinitialize(Settings.Token);
-                return true;
+                var model = data.ToObject<TokenResponse>();
+                if (model != null)
+                {
+                    Settings.Token = model.Token;
+                    networkService.Reinitialize(Settings.Token);
+                    return true;
+                }
             }
             return false;
         }
@@ -42,6 +46,11 @@ namespace BJtest.Common.Managers.UserManager
         public bool IsLogged()
         {
             return !Settings.Token.Equals(Settings.TokenDefault);
+        }
+
+        public void ResetLogin()
+        {
+            Settings.Token = Settings.TokenDefault;
         }
     }
 }

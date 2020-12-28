@@ -134,8 +134,17 @@ namespace BJtest.REST
                     return answer;
                 }
 
-                if (answer.Data is Dictionary<string, string> dict)
-                    throw new InternalException(String.Join("\n", dict.Values.ToList()));
+                if (answer.Data is JObject dict)
+                {
+                    List<string> list = new List<string>();
+                    foreach (JToken token in dict.Children())
+                        if (token is JProperty)
+                        {
+                            var prop = token as JProperty;
+                            list.Add(prop.Value.ToString());
+                        }
+                    throw new InternalException(String.Join("\n", list));
+                }
                 else
                     throw new InternalException(answer.Data as string);
             }

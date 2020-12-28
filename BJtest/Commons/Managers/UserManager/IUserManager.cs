@@ -8,5 +8,6 @@ namespace BJtest.Common.Managers.UserManager
         Task<bool> Login(string login, string password);
 
         bool IsLogged();
+        void ResetLogin();
     }
 }
