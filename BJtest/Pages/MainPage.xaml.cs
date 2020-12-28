@@ -24,6 +24,10 @@ namespace BJtest
             BindingContext = _viewModel;
             SortFieldPicker.ItemsSource = _viewModel.SortFieldsList;
             SortDirectionPicker.ItemsSource = _viewModel.SortDirectionsList;
+            SortFieldPicker.SelectedIndex = 0;
+            SortDirectionPicker.SelectedIndex = 0;
+            SortFieldPicker.SelectedIndexChanged += SortFieldPicker_SelectedIndexChanged;
+            SortDirectionPicker.SelectedIndexChanged += SortDirectionPicker_SelectedIndexChanged;
         }
 
         private async void TasksList_SelectionChanged(System.Object sender, Xamarin.Forms.SelectionChangedEventArgs e)

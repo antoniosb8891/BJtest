@@ -20,18 +20,18 @@ namespace BJtest.ViewModels.PagesViewModels
         private bool _firstStart = true;
 
         private int _currentPageNumber = 1;
-        private SortDirectionEnum _curSortDirection = SortDirectionEnum.ASC;
-        private SortFieldEnum _curSortField = SortFieldEnum.ID;
+        private SortDirectionEnum _curSortDirection;
+        private SortFieldEnum _curSortField;
 
         public ObservableCollection<TaskViewModel> TasksList => _contentManager.TasksList;
         public ObservableCollection<PageSelectorItemViewModel> PagesList => _contentManager.PageSelectorsList;
 
         public List<SortFieldTypeViewModel> SortFieldsList = new List<SortFieldTypeViewModel>()
         {
-            { new SortFieldTypeViewModel(SortFieldEnum.ID, "ID") },
-            { new SortFieldTypeViewModel(SortFieldEnum.USERNAME, "Имя") },
-            { new SortFieldTypeViewModel(SortFieldEnum.EMAIL, "E-mail") },
-            { new SortFieldTypeViewModel(SortFieldEnum.STATUS, "Статус") }
+            { new SortFieldTypeViewModel(SortFieldEnum.ID, "По ID") },
+            { new SortFieldTypeViewModel(SortFieldEnum.USERNAME, "По Имени") },
+            { new SortFieldTypeViewModel(SortFieldEnum.EMAIL, "По E-mail") },
+            { new SortFieldTypeViewModel(SortFieldEnum.STATUS, "По Статусу") }
         };
 
         public List<SortDirectionTypeViewModel> SortDirectionsList = new List<SortDirectionTypeViewModel>()
@@ -53,6 +53,8 @@ namespace BJtest.ViewModels.PagesViewModels
         public MainPageViewModel(Page page)
         {
             _page = page;
+            _curSortField = SortFieldsList[0].FieldType;
+            _curSortDirection = SortDirectionsList[0].DirectionType;
         }
 
         public void OnAppearing()
@@ -95,7 +97,9 @@ namespace BJtest.ViewModels.PagesViewModels
             {
                 return new Command(async () =>
                 {
-                    await _contentManager.LoadTasks(_curSortField, _curSortDirection, _currentPageNumber);
+                    if (await _contentManager.LoadTasks(_curSortField, _curSortDirection, _currentPageNumber) && PagesList.Count >= _currentPageNumber && _currentPageNumber > 0)
+                        PagesList[_currentPageNumber - 1].IsSelected = true;
+
                     IsBusy = false;
                 }, () => true);
             }

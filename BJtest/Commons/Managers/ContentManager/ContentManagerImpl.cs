@@ -59,7 +59,7 @@ namespace BJtest.Commons.Managers.ContentManager
                     int pagesTotal = (int)Math.Ceiling((double)tasksTotal / 3.0);
 
                     _pageSelectorsList.Clear();
-                    for (int i = 0; i < tasksTotal; i++)
+                    for (int i = 0; i < pagesTotal; i++)
                         _pageSelectorsList.Add(new PageSelectorItemViewModel(i));
 
                     return true;

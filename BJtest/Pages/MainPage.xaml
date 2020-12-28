@@ -23,8 +23,7 @@
                             TextColor="Black"
                             BackgroundColor="White"
                             ItemDisplayBinding="{Binding Name}"
-                            VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                            SelectedIndexChanged="SortFieldPicker_SelectedIndexChanged" />
+                            VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
 
                         <Picker
                             x:Name="SortDirectionPicker"
@@ -34,8 +33,7 @@
                             HorizontalTextAlignment="End"
                             BackgroundColor="White"
                             ItemDisplayBinding="{Binding Name}"
-                            VerticalOptions="Center" HorizontalOptions="FillAndExpand"
-                            SelectedIndexChanged="SortDirectionPicker_SelectedIndexChanged" />
+                            VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
                 </StackLayout>
 
@@ -113,7 +111,20 @@
                                             FontAttributes="Bold"
                                             FontSize="Medium"
                                             HorizontalOptions="Center"
-                                            VerticalOptions="Center" />
+                                            VerticalOptions="Center" >
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsSelected}" TargetType="Label" Value="True" >
+                                                <Setter Property="TextColor" Value="Orange" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Frame.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsSelected}" TargetType="Frame" Value="True" >
+                                            <Setter Property="BorderColor" Value="Orange" />
+                                        </DataTrigger>
+                                    </Frame.Triggers>
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="PageSelector_Tapped" />
                                     </Frame.GestureRecognizers>
