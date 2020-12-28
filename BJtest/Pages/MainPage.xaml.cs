@@ -22,6 +22,8 @@ namespace BJtest
 
             _viewModel = new MainPageViewModel(this);
             BindingContext = _viewModel;
+            SortFieldPicker.ItemsSource = _viewModel.SortFieldsList;
+            SortDirectionPicker.ItemsSource = _viewModel.SortDirectionsList;
         }
 
         private async void TasksList_SelectionChanged(System.Object sender, Xamarin.Forms.SelectionChangedEventArgs e)
@@ -61,6 +63,24 @@ namespace BJtest
                 PagesCarousel.Position = viewModel.Index;
                 _viewModel?.ChangePage(viewModel.Number);
             }
+        }
+
+        private void SortFieldPicker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
+        {
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+
+            if (selectedIndex != -1)
+                _viewModel?.ChangeSortField(((SortFieldTypeViewModel)picker.ItemsSource[selectedIndex]).FieldType);
+        }
+
+        private void SortDirectionPicker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
+        {
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+
+            if (selectedIndex != -1)
+                _viewModel?.ChangeSortDirection(((SortDirectionTypeViewModel)picker.ItemsSource[selectedIndex]).DirectionType);
         }
     }
 }

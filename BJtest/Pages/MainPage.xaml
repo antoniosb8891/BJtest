@@ -13,6 +13,32 @@
     <ContentPage.Content>
         <Grid>
             <StackLayout VerticalOptions="FillAndExpand" Spacing="15" Padding="15">
+                <StackLayout Spacing="0" HorizontalOptions="FillAndExpand">
+                    <Label Text="Сортировка:" TextColor="Black" FontSize="Medium" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                        <Picker
+                            x:Name="SortFieldPicker"
+                            Title="По полю"
+                            TitleColor="Black"
+                            TextColor="Black"
+                            BackgroundColor="White"
+                            ItemDisplayBinding="{Binding Name}"
+                            VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                            SelectedIndexChanged="SortFieldPicker_SelectedIndexChanged" />
+
+                        <Picker
+                            x:Name="SortDirectionPicker"
+                            Title="По направлению"
+                            TitleColor="Black"
+                            TextColor="Black"
+                            HorizontalTextAlignment="End"
+                            BackgroundColor="White"
+                            ItemDisplayBinding="{Binding Name}"
+                            VerticalOptions="Center" HorizontalOptions="FillAndExpand"
+                            SelectedIndexChanged="SortDirectionPicker_SelectedIndexChanged" />
+                    </StackLayout>
+                </StackLayout>
+
                 <RefreshView
                     IsRefreshing="{Binding IsBusy}"
                     Command="{Binding LoadTasksCommand}" >

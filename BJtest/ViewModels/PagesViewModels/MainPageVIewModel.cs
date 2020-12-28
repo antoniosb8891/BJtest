@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,6 +25,20 @@ namespace BJtest.ViewModels.PagesViewModels
 
         public ObservableCollection<TaskViewModel> TasksList => _contentManager.TasksList;
         public ObservableCollection<PageSelectorItemViewModel> PagesList => _contentManager.PageSelectorsList;
+
+        public List<SortFieldTypeViewModel> SortFieldsList = new List<SortFieldTypeViewModel>()
+        {
+            { new SortFieldTypeViewModel(SortFieldEnum.ID, "ID") },
+            { new SortFieldTypeViewModel(SortFieldEnum.USERNAME, "Имя") },
+            { new SortFieldTypeViewModel(SortFieldEnum.EMAIL, "E-mail") },
+            { new SortFieldTypeViewModel(SortFieldEnum.STATUS, "Статус") }
+        };
+
+        public List<SortDirectionTypeViewModel> SortDirectionsList = new List<SortDirectionTypeViewModel>()
+        {
+            { new SortDirectionTypeViewModel(SortDirectionEnum.ASC, "По возрастанию") },
+            { new SortDirectionTypeViewModel(SortDirectionEnum.DESC, "По убыванию") }
+        };
 
         private string _authButtonText = "";
         public string AuthButtonText
@@ -80,29 +95,28 @@ namespace BJtest.ViewModels.PagesViewModels
             {
                 return new Command(async () =>
                 {
-                    IsBusy = true;
                     await _contentManager.LoadTasks(_curSortField, _curSortDirection, _currentPageNumber);
                     IsBusy = false;
                 }, () => true);
             }
         }
 
-        public void ChangeSortFiled(SortFieldEnum sortField)
+        public void ChangeSortField(SortFieldEnum sortField)
         {
             _curSortField = sortField;
-            LoadTasksCommand.Execute(null);
+            IsBusy = true;
         }
 
         public void ChangeSortDirection(SortDirectionEnum sortDirection)
         {
             _curSortDirection = sortDirection;
-            LoadTasksCommand.Execute(null);
+            IsBusy = true;
         }
 
         public void ChangePage(int pageNumber)
         {
             _currentPageNumber = pageNumber;
-            LoadTasksCommand.Execute(null);
+            IsBusy = true;
         }
     }
 }
