@@ -76,6 +76,9 @@ namespace BJtest.ViewModels.ViewsViewModels
             }
         }
 
+        public int Id => _model.Id;
+        public int Status => _model.Status;
+
         public TaskRestModel GetModel => _model;
     }
 }

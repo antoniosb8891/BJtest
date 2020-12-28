@@ -16,5 +16,8 @@ namespace BJtest.REST
         [Post("/create")]
         Task<ApiResponse<BaseResponseRestModel>> CreateTask([Body(BodySerializationMethod.UrlEncoded)] CreateTaskRequest request, [AliasAs("developer")] string developer);
 
+        [Post("/edit/{id}")]
+        Task<ApiResponse<BaseResponseRestModel>> EditTask([Body(BodySerializationMethod.UrlEncoded)] EditTaskRequest request, [AliasAs("id")] string taskId, [AliasAs("developer")] string developer);
+
     }
 }

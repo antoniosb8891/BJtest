@@ -39,7 +39,8 @@ namespace BJtest.REST
         {
             LOGIN,
             GET_TASKS,
-            CREATE_TASK
+            CREATE_TASK,
+            EDIT_TASK
         }
 
         public NetworkService()
@@ -117,6 +118,18 @@ namespace BJtest.REST
                             if (args.TryGetValue("arg1", out object reqObj) && reqObj is CreateTaskRequest request)
                             {
                                 var response = await api.CreateTask(request, Constants.REQUEST_PARAM_DEVELOPER);
+                                apiResponse = response;
+                                answer = response.Content;
+                            }
+                            break;
+                        }
+                    case TaskType.EDIT_TASK:
+                        {
+                            if (args.TryGetValue("arg1", out object reqObj) && reqObj is EditTaskRequest request
+                                && args.TryGetValue("arg2", out object idObj) && idObj is string taskId)
+                            {
+                                request.Token = activeToken;
+                                var response = await api.EditTask(request, taskId, Constants.REQUEST_PARAM_DEVELOPER);
                                 apiResponse = response;
                                 answer = response.Content;
                             }

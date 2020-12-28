@@ -90,5 +90,21 @@ namespace BJtest.Commons.Managers.ContentManager
             return false;
         }
 
+        public async Task<bool> EditTask(int taskId, string text, int status)
+        {
+            var arg = new EditTaskRequest()
+            {
+                Text = text,
+                Status = status
+            };
+            var answer = await networkService.PerformNetworkRequest(NetworkService.TaskType.EDIT_TASK, new Dictionary<string, object>
+                {
+                    { "arg1", arg },
+                    { "arg2", taskId.ToString() },
+                });
+
+            return answer != null && answer.IsStatusOk;
+        }
+
     }
 }

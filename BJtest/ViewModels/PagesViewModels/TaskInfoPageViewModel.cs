@@ -109,7 +109,7 @@ namespace BJtest.ViewModels.PagesViewModels
                         await _page.DisplayAlert("", "Введите Текст задачи", "Ok");
                         return;
                     }
-                    if (await _contentManager.CreateTask(UserName, Email, Text))
+                    if (_isNewTask ? await _contentManager.CreateTask(UserName, Email, Text) : await _contentManager.EditTask(_taskViewModel.Id, Text, _taskViewModel.Status))
                     {
                         await _page.DisplayAlert("", _isNewTask ? "Задача добавлена" : "Изменения сохранены", "Ok");
                         await _page.Navigation.PopAsync();
