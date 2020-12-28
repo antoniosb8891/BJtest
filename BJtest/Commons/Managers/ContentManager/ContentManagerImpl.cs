@@ -12,6 +12,7 @@ using BJtest.Commons.Helpers;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using BJtest.Models.DBModels;
 
 [assembly: Dependency(typeof(ContentManagerImpl))]
 namespace BJtest.Commons.Managers.ContentManager
@@ -50,9 +51,13 @@ namespace BJtest.Commons.Managers.ContentManager
                 var model = data.ToObject<GetTasksResponse>();
                 if (model != null)
                 {
+                    var dbList = await App.Database.TaskTable.GetAllItemsAsync();
+                    if (dbList == null)
+                        dbList = new List<TaskDBModel>();
+
                     _tasksList.Clear();
                     foreach (var it in model.Tasks)
-                        _tasksList.Add(new TaskViewModel(it));
+                        _tasksList.Add(new TaskViewModel(it) { WasEdited = dbList.Where(x => x.Id == it.Id).Any() });
 
                     int tasksTotal = 0;
                     int.TryParse(model.TotalTaskCount, out tasksTotal);
@@ -102,8 +107,18 @@ namespace BJtest.Commons.Managers.ContentManager
                     { "arg1", arg },
                     { "arg2", taskId.ToString() },
                 });
+            bool res = answer != null && answer.IsStatusOk;
+            if (res)
+            {
+                var taskDb = await App.Database.TaskTable.GetItemByIdAsync(taskId);
+                if (taskDb == null)
+                {
+                    taskDb = new TaskDBModel() { Id = taskId };
+                    await App.Database.TaskTable.InsertItemAsync(taskDb);
+                }
+            }
 
-            return answer != null && answer.IsStatusOk;
+            return res;
         }
 
     }
