@@ -30,8 +30,8 @@
                             Title="По направлению"
                             TitleColor="Black"
                             TextColor="Black"
-                            HorizontalTextAlignment="End"
                             BackgroundColor="White"
+                            HorizontalTextAlignment="End"
                             ItemDisplayBinding="{Binding Name}"
                             VerticalOptions="Center" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
@@ -50,7 +50,7 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Padding="5, 15, 5, 15" Spacing="7"
+                                <StackLayout Padding="5, 7, 5, 7" Spacing="7"
                                                 VerticalOptions="CenterAndExpand">
 
                                     <Label Text="{Binding UserName, StringFormat='Имя: {0}' }" FontSize="Medium" LineBreakMode="WordWrap"
@@ -82,15 +82,14 @@
                     </CollectionView>
                 </RefreshView>
             
-
                 <CarouselView
                     x:Name="PagesCarousel"
                     ItemsSource="{Binding PagesList}"
                     HeightRequest="60"
-                    WidthRequest="200"
+                    WidthRequest="150"
                     Margin="0"
                     HorizontalOptions="FillAndExpand"
-                    PeekAreaInsets="150" >
+                    PeekAreaInsets="100" >
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="20" />
                     </CarouselView.ItemsLayout>
@@ -133,11 +132,10 @@
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
-
             </StackLayout>
             
             <floatingButton:FloatingActionButtonView
-                Margin="0, 0, 20, 20"
+                Margin="0, 0, 20, 40"
                 MainButtonClicked="AddButtonClicked"
                 HorizontalOptions="End"
                 VerticalOptions="End" />

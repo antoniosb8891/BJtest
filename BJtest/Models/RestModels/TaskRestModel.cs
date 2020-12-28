@@ -10,13 +10,13 @@ namespace BJtest.Models.RestModels
         public int Id { get; set; }
 
         [JsonProperty("username")]
-        public string UserName { get; set; }
+        public string UserName { get; set; } = "";
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string Email { get; set; } = "";
 
         [JsonProperty("text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = "";
 
         [JsonProperty("status")]
         public int Status { get; set; }
@@ -38,6 +38,11 @@ namespace BJtest.Models.RestModels
             {
                 Status = value ? 10 : 0;
             }
+        }
+
+        public static int GetStatusByCompletedFlag(bool isCompleted)
+        {
+            return isCompleted ? 10 : 0;
         }
     }
 }

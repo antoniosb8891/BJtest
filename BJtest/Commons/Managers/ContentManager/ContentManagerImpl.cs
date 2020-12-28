@@ -95,7 +95,7 @@ namespace BJtest.Commons.Managers.ContentManager
             return false;
         }
 
-        public async Task<bool> EditTask(int taskId, string text, int status)
+        public async Task<bool> EditTask(int taskId, string text, int status, bool wasChanged)
         {
             var arg = new EditTaskRequest()
             {
@@ -108,7 +108,7 @@ namespace BJtest.Commons.Managers.ContentManager
                     { "arg2", taskId.ToString() },
                 });
             bool res = answer != null && answer.IsStatusOk;
-            if (res)
+            if (res && wasChanged)
             {
                 var taskDb = await App.Database.TaskTable.GetItemByIdAsync(taskId);
                 if (taskDb == null)

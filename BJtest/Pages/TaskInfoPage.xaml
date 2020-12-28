@@ -16,15 +16,15 @@
             <StackLayout Padding="15" >
                 <Label Text="Имя:" TextColor="Black" />
                 <Entry Text="{Binding UserName, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
-                       HorizontalOptions="FillAndExpand" TextColor="Black" />
+                       HorizontalOptions="FillAndExpand" TextColor="Black" Placeholder="Введите Имя" PlaceholderColor="LightGray" />
 
                 <Label Text="E-mail:" TextColor="Black" />
                 <Entry Text="{Binding Email, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
-                       HorizontalOptions="FillAndExpand" TextColor="Black" />
+                       HorizontalOptions="FillAndExpand" TextColor="Black" Placeholder="Введите E-mail" PlaceholderColor="LightGray" />
 
                 <Label Text="Текст задачи:" TextColor="Black" />
                 <Editor Text="{Binding Text, Mode=TwoWay}" IsReadOnly="{Binding IsEditable, Converter={converter:InverseBoolConverter} }"
-                        HorizontalOptions="FillAndExpand" TextColor="Black" HeightRequest="120" />
+                        HorizontalOptions="FillAndExpand" TextColor="Black" HeightRequest="120" Placeholder="Введите текст задачи" PlaceholderColor="LightGray" />
 
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding IsAdmin}" >
                     <Label Text="Выполнено" TextColor="Black" VerticalOptions="Center" />

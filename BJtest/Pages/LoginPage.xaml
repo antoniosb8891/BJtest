@@ -14,11 +14,11 @@
         <ScrollView>
             <StackLayout Padding="15" >
                 <Label Text="Логин:" TextColor="Black" />
-                <Entry Text="{Binding Login, Mode=TwoWay}" 
+                <Entry Text="{Binding Login, Mode=TwoWay}" Placeholder="Введите логин" PlaceholderColor="LightGray"
                        HorizontalOptions="FillAndExpand" TextColor="Black" />
 
                 <Label Text="Пароль:" TextColor="Black" />
-                <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True"
+                <Entry Text="{Binding Password, Mode=TwoWay}" IsPassword="True" Placeholder="Введите пароль" PlaceholderColor="LightGray"
                        HorizontalOptions="FillAndExpand" TextColor="Black" />
             </StackLayout>
         </ScrollView>

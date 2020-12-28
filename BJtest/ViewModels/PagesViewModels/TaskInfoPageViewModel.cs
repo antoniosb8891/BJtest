@@ -3,6 +3,7 @@ using System.Windows.Input;
 using BJtest.Common.Managers.UserManager;
 using BJtest.Commons.Helpers;
 using BJtest.Commons.Managers.ContentManager;
+using BJtest.Models.RestModels;
 using BJtest.ViewModels.ViewsViewModels;
 using Xamarin.Forms;
 
@@ -29,7 +30,12 @@ namespace BJtest.ViewModels.PagesViewModels
                 _isNewTask = true;
             }
             else
-                _taskViewModel = new TaskViewModel(taskViewModel);
+                _taskViewModel = taskViewModel;
+
+            _userName = _taskViewModel.UserName;
+            _email = _taskViewModel.Email;
+            _text = _taskViewModel.Text;
+            _isCompleted = _taskViewModel.IsCompleted;
 
             _page.Title = _isNewTask ? "Новая задача" : "Задача";
         }
@@ -44,47 +50,43 @@ namespace BJtest.ViewModels.PagesViewModels
             OnPropertyChanged(nameof(IsEditable));
         }
 
+        private string _userName;
         public string UserName
         {
-            get => _taskViewModel.UserName;
+            get => _userName;
             set
             {
-                if (_taskViewModel.UserName == value) return;
-                _taskViewModel.UserName = value;
-                OnPropertyChanged(nameof(UserName));
+                SetProperty(ref _userName, value, nameof(UserName));
             }
         }
 
+        private string _email;
         public string Email
         {
-            get => _taskViewModel.Email;
+            get => _email;
             set
             {
-                if (_taskViewModel.Email == value) return;
-                _taskViewModel.Email = value;
-                OnPropertyChanged(nameof(Email));
+                SetProperty(ref _email, value, nameof(Email));
             }
         }
 
+        private string _text;
         public string Text
         {
-            get => _taskViewModel.Text;
+            get => _text;
             set
             {
-                if (_taskViewModel.Text == value) return;
-                _taskViewModel.Text = value;
-                OnPropertyChanged(nameof(Text));
+                SetProperty(ref _text, value, nameof(Text));
             }
         }
 
+        private bool _isCompleted;
         public bool IsCompleted
         {
-            get => _taskViewModel.IsCompleted;
+            get => _isCompleted;
             set
             {
-                if (_taskViewModel.IsCompleted == value) return;
-                _taskViewModel.IsCompleted = value;
-                OnPropertyChanged(nameof(IsCompleted));
+                SetProperty(ref _isCompleted, value, nameof(IsCompleted));
             }
         }
 
@@ -109,7 +111,9 @@ namespace BJtest.ViewModels.PagesViewModels
                         await _page.DisplayAlert("", "Введите Текст задачи", "Ok");
                         return;
                     }
-                    if (_isNewTask ? await _contentManager.CreateTask(UserName, Email, Text) : await _contentManager.EditTask(_taskViewModel.Id, Text, _taskViewModel.Status))
+                    if (_isNewTask ?
+                            await _contentManager.CreateTask(UserName, Email, Text) :
+                            await _contentManager.EditTask(_taskViewModel.Id, Text, TaskRestModel.GetStatusByCompletedFlag(_isCompleted), Text != _taskViewModel.Text))
                     {
                         await _page.DisplayAlert("", _isNewTask ? "Задача добавлена" : "Изменения сохранены", "Ok");
                         await _page.Navigation.PopAsync();

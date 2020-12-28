@@ -10,7 +10,7 @@ namespace BJtest.Commons.Managers.ContentManager
     {
         Task<bool> LoadTasks(Constants.SortFieldEnum sortFieldType, Constants.SortDirectionEnum sortDirectionType, int pageNum);
         Task<bool> CreateTask(string userName, string email, string text);
-        Task<bool> EditTask(int taskId, string text, int status);
+        Task<bool> EditTask(int taskId, string text, int status, bool wasChanged);
 
         ObservableCollection<TaskViewModel> TasksList { get; }
         ObservableCollection<PageSelectorItemViewModel> PageSelectorsList { get; }

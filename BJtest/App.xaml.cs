@@ -30,6 +30,8 @@ namespace BJtest
 
         public App()
         {
+            Device.SetFlags(new string[] { "CarouselView_Experimental" });
+
             InitializeComponent();
 
             JsonSettings = new JsonSerializerSettings()
